@@ -24,3 +24,19 @@ let ancestors = (id, arr = []) => {
 };
 
 console.log("Part 1:", bodies.map(b => ancestors(b)).flat().length);
+
+let myAnc = ancestors("YOU");
+let hisAnc = ancestors("SAN");
+
+let getCommon = (a, b) => {
+  for (const anc of myAnc) {
+    if (hisAnc.includes(anc)) {
+      return anc;
+    }
+  }
+};
+
+let common = getCommon(myAnc, hisAnc);
+let hops = myAnc.indexOf(common) + hisAnc.indexOf(common);
+
+console.log("Part 2:", hops);
