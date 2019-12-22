@@ -25,11 +25,15 @@ let instructions = rawInput.split("\n").map(str => {
   }
 });
 
-let indexes = deck.map(x => {
-  return instructions.reduce((newIndex, fn) => {
-    return fn(newIndex, deck.length);
-  }, x);
-});
+let applyInstructions = arr => {
+  return arr.map(x => {
+    return instructions.reduce((newIndex, fn) => {
+      return fn(newIndex, deck.length);
+    }, x);
+  });
+};
+
+let indexes = applyInstructions(deck);
 
 let reOrder = (deck, indexes) => {
   return deck.reduce((arr, v, i) => {
@@ -40,3 +44,15 @@ let reOrder = (deck, indexes) => {
 };
 
 console.log("Part 1:", reOrder(deck, indexes).indexOf(2019));
+
+// should work but will take too long
+theLoop: for (let i = 0; i < 119315717514047; i++) {
+  let newIndex = i;
+  for (let j = 0; j < 101741582076661; j++) {
+    newIndex = applyInstructions([newIndex])[0];
+  }
+  if (newIndex === 2020) {
+    console.log("Part 2:", i);
+    break theLoop;
+  }
+}
